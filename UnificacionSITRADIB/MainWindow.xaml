@@ -4,25 +4,84 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UnificacionSITRADIB"
+        xmlns:helpers="clr-namespace:UnificacionSITRADIB.Helpers"
         mc:Ignorable="d"
-        Title="Unificador de Archivos SITRADIB" Height="450" Width="800">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Orientation="Horizontal" Margin="0 0 0 10">
-            <Button x:Name="btnSeleccionarArchivos" Content="Seleccionar Archivos" Width="150" Margin="0 0 10 0" Click="BtnSeleccionarArchivos_Click"/>
-            <TextBlock x:Name="txtCantidadArchivos" VerticalAlignment="Center"/>
+        Title="Unificador de Archivos SITRADIB" Height="566" Width="1015"
+        Background="#f0f0f0">
+    <Window.Resources>
+        <helpers:InverseBoolConverter x:Key="InverseBoolConverter"/>
+        <helpers:NullToBoolConverter x:Key="NullToBoolConverter"/>
+    </Window.Resources>
+    <DockPanel Margin="10">
+        <!-- Botones arriba -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 0 0 10">
+            <Button Content="Seleccionar archivos" Command="{Binding SeleccionarArchivosCommand}" Margin="0 0 10 0"/>
+            <Button Content="Habilitar edición" Command="{Binding HabilitarEdicionCommand}" Margin="0 0 10 0"/>
+            <Button Content="Exportar archivo" Command="{Binding ExportarCommand}" />
         </StackPanel>
 
-        <DataGrid x:Name="dataGridRegistros" Grid.Row="1" AutoGenerateColumns="True" CanUserAddRows="False" />
-
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="0 10 0 0">
-            <Button x:Name="btnUnificar" Content="Unificar y Guardar" Width="150" Margin="0 0 10 0" Click="BtnUnificar_Click"/>
-            <Button Content="Salir" Width="80" Click="BtnSalir_Click"/>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 0 0 10">
+            <TextBlock Text="CUIT:" FontWeight="Bold" Margin="0 0 5 0"/>
+            <TextBlock Text="{Binding Cuit}" Margin="0 0 20 0"/>
+            <TextBlock Text="Período:" FontWeight="Bold" Margin="0 0 5 0"/>
+            <TextBlock Text="{Binding Periodo}" Margin="0 0 20 0"/>
         </StackPanel>
-    </Grid>
+
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0 0 0 10">
+            <TextBlock Text="Total empleados:" FontWeight="Bold" Margin="0 0 5 0"/>
+            <TextBlock Text="{Binding TotalEmpleados}" Margin="0 0 5 0"/>
+            <TextBlock Text="Total sueldos:" FontWeight="Bold" Margin="0 0 5 0"/>
+            <TextBlock Text="{Binding TotalSueldos, StringFormat={}{0:C}, ConverterCulture=es-AR}" Margin="0 0 20 0"/>
+        </StackPanel>
+
+        <!-- Contenido con Tabs -->
+        <TabControl>
+            <!-- Tab 1: Archivos -->
+            <TabItem Header="Archivos seleccionados">
+                <ListBox ItemsSource="{Binding ArchivosSeleccionados}" />
+            </TabItem>
+
+            <!-- Tab 2: Empleados -->
+            <TabItem Header="Listado de empleados">
+                <DataGrid ItemsSource="{Binding Empleados}" SelectedItem="{Binding EmpleadoSeleccionado}"
+                          AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="CUIL" Binding="{Binding Dni}" Width="150"/>
+                        <DataGridTextColumn Header="Cantidad de conceptos" Binding="{Binding Registros.Count}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+            <!-- Tab 3: Detalle del Empleado -->
+            <TabItem Header="{Binding TituloDetalleEmpleado}" 
+                     IsEnabled="{Binding EmpleadoSeleccionado, Converter={StaticResource NullToBoolConverter}}">
+                <StackPanel>
+                    <DataGrid ItemsSource="{Binding EmpleadoSeleccionado.Conceptos}" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Código" Binding="{Binding Codigo}" Width="70"/>
+                            <DataGridTextColumn Header="Concepto" Binding="{Binding Descripcion}" Width="2*"/>
+                            <DataGridTextColumn Header="Cantidad" Binding="{Binding Cantidad}" Width="70"/>
+                            <DataGridTextColumn Header="Unidad" Binding="{Binding Unidad}" Width="70"/>
+                            <DataGridTextColumn Header="Importe" Binding="{Binding Importe, StringFormat={}{0:C}, ConverterCulture=es-AR}" Width="*"/>
+                            <DataGridTextColumn Header="Tipo" Binding="{Binding Indicador}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Eliminar" Command="{Binding EliminarRegistroCommand}" 
+                                IsEnabled="{Binding RegistroSeleccionado, Converter={StaticResource NullToBoolConverter}}" Margin="0 0 10 0"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+
+            <!-- Tab 5: Todos los Registros -->
+            <TabItem Header="Registros">
+                <DataGrid ItemsSource="{Binding Registros}" 
+                          AutoGenerateColumns="True"
+                          IsReadOnly="{Binding SoloLectura}"
+                          Margin="10"/>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
