@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -149,65 +150,134 @@ namespace UnificacionSITRADIB.ViewModels
         private void CargarArchivos(string[] archivos)
         {
             string cuitReferencia = null;
+            string cuilActual = null;
+            var empleadosDict = new Dictionary<string, List<RegistroLSD>>();
+
+            Registros.Clear();
+            Empleados.Clear();
 
             foreach (var archivo in archivos)
             {
                 var lineas = File.ReadAllLines(archivo);
                 foreach (var linea in lineas)
                 {
+                    if (string.IsNullOrWhiteSpace(linea) || linea.Length < 2) continue;
+
+                    var tipo = linea.Substring(0, 2);
                     var registro = new RegistroLSD(linea);
 
-                    // Proceso específico para tipo "01" (datos de la empresa)
-                    if (registro.Tipo == "01")
+                    // 01 → datos de la empresa
+                    if (tipo == "01")
                     {
+                        if (linea.Length < 21) continue;
+
                         var cuit = linea.Substring(2, 11);
-                        DateTime periodo = DateTime.ParseExact(linea.Substring(15, 6),"yyyyMM",null);
+                        DateTime periodo = DateTime.ParseExact(linea.Substring(15, 6), "yyyyMM", null);
 
                         if (cuitReferencia == null)
                         {
                             cuitReferencia = cuit;
                             Cuit = cuit;
-                            Periodo = periodo.ToString("MMM-yyyy");
+                            Periodo = periodo.ToString("MMM-yyyy", new CultureInfo("es-AR"));
                         }
                         else if (cuit != cuitReferencia)
                         {
-                            // Si el CUIT no coincide, se ignora este archivo
-                            break;
+                            break; // Ignorar archivo con CUIT diferente
                         }
+
+                        Registros.Add(registro);
+                        continue;
                     }
 
-                    // Agregar el registro procesado
+                    // 02 → empleado (datos generales)
+                    if (tipo == "02")
+                    {
+                        if (linea.Length < 13) continue;
+
+                        // CUIL está en posiciones 3-13 (índice 2-12)
+                        cuilActual = linea.Substring(2, 11);
+
+                        if (!empleadosDict.ContainsKey(cuilActual))
+                        {
+                            empleadosDict[cuilActual] = new List<RegistroLSD>();
+                        }
+                        empleadosDict[cuilActual].Add(registro);
+                        Registros.Add(registro);
+                        continue;
+                    }
+
+                    // 03, 04 → detalles del empleado actual
+                    if ((tipo == "03" || tipo == "04") && !string.IsNullOrEmpty(cuilActual))
+                    {
+                        if (!empleadosDict.ContainsKey(cuilActual))
+                        {
+                            empleadosDict[cuilActual] = new List<RegistroLSD>();
+                        }
+                        empleadosDict[cuilActual].Add(registro);
+                    }
+
                     Registros.Add(registro);
                 }
             }
 
-            // Agrupar los registros por empleado
-            AgruparPorEmpleado();
-            ActualizarTotales();
-        }
-
-        // Agrupar los registros de acuerdo con el empleado (por DNI)
-        private void AgruparPorEmpleado()
-        {
-            var grupos = Registros
-                .Where(r => r.Tipo == "03") // Tipo 03 es para los datos del empleado
-                .GroupBy(r => r.Texto.Substring(2, 11)); // Agrupar por el DNI o identificador del empleado
-
-            foreach (var grupo in grupos)
+            // Crear ViewModels de empleados
+            foreach (var kvp in empleadosDict.OrderBy(x => x.Key))
             {
-                var dni = grupo.Key;
-                var registrosEmpleado = Registros
-                    .Where(r => new[] { "03", "04", "05", "06" }.Contains(r.Tipo)
-                             && r.Texto.Substring(2, 11) == dni)
-                    .ToList();
+                var cuil = kvp.Key;
+                var registros = kvp.Value;
+
+                // Buscar nombre en registro tipo 02
+                var reg02 = registros.FirstOrDefault(r => r.Tipo == "02");
+                string nombre = "(Nombre no disponible)";
+
+                if (reg02 != null && reg02.Texto.Length >= 63)
+                {
+                    // Apellido y Nombres están en posiciones 24-63 (40 caracteres)
+                    nombre = reg02.Texto.Substring(23, 40).Trim();
+                }
 
                 Empleados.Add(new EmpleadoViewModel
                 {
-                    Dni = dni,
-                    Registros = registrosEmpleado
+                    Dni = cuil,
+                    Nombre = nombre,
+                    Registros = registros
                 });
             }
+            //AgruparPorEmpleado();
+            ActualizarTotales();
         }
+
+
+        // Agrupar los registros por empleado usando el CUIL actual
+        private void AgruparPorEmpleado()
+        {
+            // agrupamos según el CUIL (posiciones 2–12 luego de haberlo inyectado en CargarArchivos)
+            var grupos = Registros
+                .Where(r => new[] { "03", "04", "05", "06" }.Contains(r.Tipo))
+                .GroupBy(r => r.Texto.Substring(2, 11));
+
+            Empleados.Clear();
+
+            foreach (var grupo in grupos)
+            {
+                string cuil = grupo.Key;
+                string nombre = grupo
+                    .Where(r => r.Tipo == "03")
+                    .Select(r => r.Texto.Substring(13, 30).Trim())
+                    .FirstOrDefault() ?? "(Nombre no disponible)";
+
+                Empleados.Add(new EmpleadoViewModel
+                {
+                    Dni = cuil,
+                    Nombre = nombre,
+                    Registros = grupo.ToList()
+                });
+            }
+
+            // Refrescar el total de empleados
+            TotalEmpleados = Empleados.Count;
+        }
+
 
         // Eliminar un registro seleccionado
         private void EliminarRegistro()
@@ -221,17 +291,7 @@ namespace UnificacionSITRADIB.ViewModels
         private void ActualizarTotales()
         {
             TotalEmpleados = Empleados.Count;
-
-            // Sueldos = registros tipo 04 con valores numéricos
-            TotalSueldos = Registros
-                .Where(r => r.Tipo == "04")
-                .Select(r =>
-                {
-                    if (decimal.TryParse(r.Texto.Substring(161, 15), out var monto)) // adaptá si cambia la posición
-                        return monto / 100; // suponiendo dos decimales
-                    return 0;
-                })
-                .Sum();
+            TotalSueldos = Empleados.Sum(emp => emp.TotalNeto);
         }
     }
 }

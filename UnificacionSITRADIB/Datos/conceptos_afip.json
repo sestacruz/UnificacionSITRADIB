@@ -1,0 +1,382 @@
+[
+    {
+        "Codigo": "110000",
+        "Descripcion": "Sueldo",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110001",
+        "Descripcion": "Preaviso",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110002",
+        "Descripcion": "Remuneraciones en especie",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110003",
+        "Descripcion": "Comida",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110004",
+        "Descripcion": "Habitación",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110005",
+        "Descripcion": "Licencias por estudio",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110006",
+        "Descripcion": "Donación de sangre",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110007",
+        "Descripcion": "Feriado",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110008",
+        "Descripcion": "Prest. Dineraria Ley 24577 (primeros 10 días)",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "110009",
+        "Descripcion": "Prest. Dineraria Ley 24577 (a cargo de ART)",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "120000",
+        "Descripcion": "Sueldo anual complementario",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "120001",
+        "Descripcion": "SAC 1er semestre",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "120002",
+        "Descripcion": "SAC 2do semestre",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "120003",
+        "Descripcion": "SAC proporcional",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "130000",
+        "Descripcion": "Horas extras",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "130001",
+        "Descripcion": "Horas extras al 50%",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "130002",
+        "Descripcion": "Horas extras al 100%",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "130003",
+        "Descripcion": "Horas extras al 200%",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "140000",
+        "Descripcion": "Zona desfavorable",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "150000",
+        "Descripcion": "Adelanto vacacional",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "160000",
+        "Descripcion": "Adicionales",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "160001",
+        "Descripcion": "Adicional por antigüedad",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "160002",
+        "Descripcion": "Adicional por título",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "160003",
+        "Descripcion": "Adicional por tarea",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "160004",
+        "Descripcion": "Adicional por desarraigo",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "170000",
+        "Descripcion": "Gratificaciones y/o Premios",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "170001",
+        "Descripcion": "Premio por presentismo",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "170002",
+        "Descripcion": "Premio por producción",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "170003",
+        "Descripcion": "Comisiones",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "170004",
+        "Descripcion": "Accesorios",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "170005",
+        "Descripcion": "Viáticos sin comprobante",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "170006",
+        "Descripcion": "Propinas habituales no prohibidas",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "499999",
+        "Descripcion": "Redondeo (Remunerativo)",
+        "Tipo": "Remunerativo"
+    },
+    {
+        "Codigo": "510000",
+        "Descripcion": "Asignaciones Familiares",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "510001",
+        "Descripcion": "Ayuda escolar",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "510002",
+        "Descripcion": "Asignación por hijo/hijo con discapacidad",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "510003",
+        "Descripcion": "Asignación por maternidad",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "510004",
+        "Descripcion": "Asignación por maternidad down",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "510005",
+        "Descripcion": "Asignación por matrimonio",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "510006",
+        "Descripcion": "Asignación por nacimiento/adopción",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "510007",
+        "Descripcion": "Asignación por prenatal",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520000",
+        "Descripcion": "Beneficios sociales",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520001",
+        "Descripcion": "Servicio de comedor",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520002",
+        "Descripcion": "Gastos médicos",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520003",
+        "Descripcion": "Provisión de ropa de trabajo",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520004",
+        "Descripcion": "Guardería",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520005",
+        "Descripcion": "Provisión de útiles escolares",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520006",
+        "Descripcion": "Gastos de sepelio",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520007",
+        "Descripcion": "Cursos de capacitación",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520008",
+        "Descripcion": "Becas (art. 7 Ley 24.241 y modif.)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520009",
+        "Descripcion": "Desempleo (art. 7 Ley 24.241 y modif.)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520010",
+        "Descripcion": "Gratificación por cese laboral (art. 7 Ley 24.241 y modif.)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520011",
+        "Descripcion": "Indemnización por extinción del contrato de trabajo (art. 7 Ley 24.241 y modif.)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520012",
+        "Descripcion": "Vacaciones no gozadas (art. 7 Ley 24.241 y modif.)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520013",
+        "Descripcion": "Incapacidad permanente (art. 7 Ley 24.241 y modif.)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520014",
+        "Descripcion": "Indemnización por despido",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520015",
+        "Descripcion": "Indemnización sustitutiva del preaviso",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520016",
+        "Descripcion": "Integración mes de despido",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520017",
+        "Descripcion": "SAC sobre integración o preaviso",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "520018",
+        "Descripcion": "SAC sobre vacaciones no gozadas",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "530000",
+        "Descripcion": "Incrementos no remunerativos (con aportes OS)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "540000",
+        "Descripcion": "Incrementos no remunerativos (con aportes y contribuciones OS)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "550000",
+        "Descripcion": "Importes no remunerativos especiales",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "799999",
+        "Descripcion": "Redondeo (No Remunerativo)",
+        "Tipo": "No Remunerativo"
+    },
+    {
+        "Codigo": "810000",
+        "Descripcion": "Sistema previsional",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810001",
+        "Descripcion": "INSSJyP",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810002",
+        "Descripcion": "Obra Social",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810003",
+        "Descripcion": "Fondo Solidario de Redistribución (ex ANSSAL)",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810004",
+        "Descripcion": "Cuota Sindical",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810005",
+        "Descripcion": "Seguro de Vida",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810006",
+        "Descripcion": "RENATEA (ex RENATRE)",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810007",
+        "Descripcion": "Préstamos",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810008",
+        "Descripcion": "Impuesto a las Ganancias",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810009",
+        "Descripcion": "Obra Social - Adherentes",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "810010",
+        "Descripcion": "Fondo Solidario de Redistribución (ex ANSSAL) - Adherentes",
+        "Tipo": "Descuento"
+    },
+    {
+        "Codigo": "820000",
+        "Descripcion": "Otros descuentos",
+        "Tipo": "Descuento"
+    }
+]

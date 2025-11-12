@@ -6,6 +6,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>administracion-del-dinero.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Datos\conceptos_afip.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="administracion-del-dinero.ico" />
+    <Content Include="Datos\conceptos_afip.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
 </Project>
